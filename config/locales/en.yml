@@ -1,0 +1,7 @@
+en:
+  activemodel:
+    errors:
+      messages:
+        invalid_csv: "is not a valid CSV file"
+        max_rows: "should have no more than %{max} rows"
+        missing_headers: "should have %{missing_headers} columns"
