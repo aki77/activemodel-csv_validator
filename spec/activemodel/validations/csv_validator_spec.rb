@@ -6,7 +6,7 @@ RSpec.describe ActiveModel::Validations::CsvValidator do
 
     Struct.new(:file) do
       include ActiveModel::Validations
-      validates :file, csv: _options
+      validates :file, presence: true, csv: _options
 
       def self.name
         'DummyModel'
@@ -21,7 +21,7 @@ RSpec.describe ActiveModel::Validations::CsvValidator do
   end
   let(:model) { model_class.new(csv_file) }
 
-  after { csv_file.close! }
+  after { csv_file&.close! }
 
   describe 'validate' do
     context 'valid file' do
@@ -81,6 +81,16 @@ RSpec.describe ActiveModel::Validations::CsvValidator do
       it 'missing_headers error' do
         model.valid?
         expect(model.errors).to be_of_kind(:file, :missing_headers)
+      end
+    end
+
+    context 'When the file is nil' do
+      let(:csv_file) { nil }
+      let(:options) { true }
+
+      it 'blank error' do
+        model.valid?
+        expect(model.errors).to be_of_kind(:file, :blank)
       end
     end
   end

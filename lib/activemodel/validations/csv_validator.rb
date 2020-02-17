@@ -6,6 +6,8 @@ module ActiveModel
   module Validations
     class CsvValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
+        return if value.nil?
+
         content = NKF.nkf('-w', File.read(value.path, universal_newline: true))
         rows = CSV.parse(content, headers: :first_row, converters: :integer)
 
