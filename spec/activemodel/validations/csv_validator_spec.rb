@@ -13,20 +13,12 @@ RSpec.describe ActiveModel::Validations::CsvValidator do
       end
     end
   end
-  let(:csv_file) do
-    tmp = Tempfile.open(%w[test .csv])
-    tmp.write csv_content
-    tmp.flush
-    tmp
-  end
   let(:model) { model_class.new(csv_file) }
-
-  after { csv_file&.close! }
 
   describe 'validate' do
     context 'valid file' do
-      let(:csv_content) do
-        <<~CSV
+      let(:csv_file) do
+        create_csv_file(<<~CSV)
           field1,field2,field3
           aaa,iii,uuu
         CSV
@@ -39,8 +31,8 @@ RSpec.describe ActiveModel::Validations::CsvValidator do
     end
 
     context 'When the CSV format is invalid' do
-      let(:csv_content) do
-        <<~CSV
+      let(:csv_file) do
+        create_csv_file(<<~CSV)
           field1,field2,field3
           "3",NAME"","VAL
         CSV
@@ -54,8 +46,8 @@ RSpec.describe ActiveModel::Validations::CsvValidator do
     end
 
     context 'When the number of lines is exceeded' do
-      let(:csv_content) do
-        <<~CSV
+      let(:csv_file) do
+        create_csv_file(<<~CSV)
           field1,field2,field3
           aaa,iii,uuu
           aaa,iii,uuu
@@ -70,8 +62,8 @@ RSpec.describe ActiveModel::Validations::CsvValidator do
     end
 
     context 'When headers are different' do
-      let(:csv_content) do
-        <<~CSV
+      let(:csv_file) do
+        create_csv_file(<<~CSV)
           field1,field2,field4
           aaa,iii,uuu
         CSV
