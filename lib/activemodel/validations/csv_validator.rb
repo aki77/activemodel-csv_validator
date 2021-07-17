@@ -12,7 +12,7 @@ module ActiveModel
         rows = CSV.parse(content, headers: :first_row, converters: :integer)
 
         if options[:max].present? && rows.size > options[:max]
-          record.errors.add(attribute, :max_rows, options.slice(:max).merge(rows: rows.size))
+          record.errors.add(attribute, :max_rows, **options.slice(:max).merge(rows: rows.size))
         end
 
         if options[:headers].present?
