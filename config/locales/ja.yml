@@ -3,5 +3,6 @@ ja:
     errors:
       messages:
         invalid_csv: "のフォーマットが正しくありません。"
+        min_rows: "のデータが%{rows}件あります。%{min}件以上にしてください。"
         max_rows: "のデータが%{rows}件あります。%{max}件以下にしてください。"
         missing_headers: "には%{missing_headers}のフィールドが不足しています。"

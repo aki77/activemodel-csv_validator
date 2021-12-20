@@ -26,7 +26,7 @@ class CsvForm
 
   attr_accessor :file
 
-  validates :file, presence: true, csv: { max: 100, headers: %w[field1 field2 field3] }
+  validates :file, presence: true, csv: { min: 1, max: 100, headers: %w[field1 field2 field3] }
 end
 ```
 

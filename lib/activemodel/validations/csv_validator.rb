@@ -15,6 +15,10 @@ module ActiveModel
           record.errors.add(attribute, :max_rows, **options.slice(:max).merge(rows: rows.size))
         end
 
+        if options[:min].present? && rows.size < options[:min]
+          record.errors.add(attribute, :min_rows, **options.slice(:min).merge(rows: rows.size))
+        end
+
         if options[:headers].present?
           missing_headers = options[:headers] - rows.headers
           if missing_headers.present?
