@@ -45,6 +45,20 @@ RSpec.describe ActiveModel::Validations::CsvValidator do
       end
     end
 
+    context 'When the number of lines is falled' do
+      let(:csv_file) do
+        create_csv_file(<<~CSV)
+          field1,field2,field3
+        CSV
+      end
+      let(:options) { { min: 1 } }
+
+      it 'min_rows error' do
+        model.valid?
+        expect(model.errors).to be_of_kind(:file, :min_rows)
+      end
+    end
+
     context 'When the number of lines is exceeded' do
       let(:csv_file) do
         create_csv_file(<<~CSV)
