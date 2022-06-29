@@ -1,6 +1,7 @@
 ## 0.3.0
 
 - Drop support ruby@2.6
+- Drop support rails@6.0
 
 ## 0.2.0
 
