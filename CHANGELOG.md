@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Drop support ruby@2.6
+
 ## 0.2.0
 
 - Drop support ruby@2.5
