@@ -1,4 +1,4 @@
-## 0.3.0
+## 0.4.0
 
 - Drop support ruby@2.6
 - Drop support rails@6.0
