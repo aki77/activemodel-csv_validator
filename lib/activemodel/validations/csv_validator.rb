@@ -20,7 +20,8 @@ module ActiveModel
         end
 
         if options[:headers].present?
-          missing_headers = options[:headers] - rows.headers
+          headers = options[:headers].respond_to?(:call) ? options[:headers].call(record) : options[:headers]
+          missing_headers = headers - rows.headers
           if missing_headers.present?
             record.errors.add(attribute, :missing_headers, missing_headers: missing_headers.to_sentence)
           end
